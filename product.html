@@ -8,8 +8,11 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Comparison Slider -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/img-comparison-slider@7/dist/index.js"></script>
+    <!-- Image Comparison Slider -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/img-comparison-slider@7/dist/index.js"
+    ></script>
 
     <style>
       img-comparison-slider {
@@ -18,7 +21,10 @@
         aspect-ratio: 16/9;
         display: block;
         overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
+
       img-comparison-slider img {
         object-fit: cover;
         width: 100%;
@@ -26,96 +32,270 @@
       }
     </style>
   </head>
-  <body class="bg-gray-100 min-h-screen flex flex-col items-center py-10 px-4">
-    <h1 class="text-3xl font-bold mb-6">Background Remover</h1>
+  <body
+    class="text-white bg-cover bg-center bg-no-repeat min-h-screen flex flex-col"
+    style="background-image: url('/Assets/back.svg')"
+  >
+    <!-- Navbar -->
+    <nav class="px-8 py-6">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div
+          class="text-white font-bold text-xl flex items-center cursor-pointer"
+        >
+          Backdrop Ninja
+        </div>
 
-    <input
-      type="file"
-      id="imageUpload"
-      accept="image/*"
-      class="mb-4 border p-2 rounded"
-    />
+        <!-- Desktop Links -->
+        <div class="space-x-8 text-sm font-medium hidden md:flex">
+          <a href="/product.html" class="text-white hover:text-indigo-500"
+            >Product</a
+          >
+          <a href="#" class="text-white hover:text-indigo-500">About Us</a>
+          <a href="#" class="text-white hover:text-indigo-500">Marketplace</a>
+          <a href="#" class="text-white hover:text-indigo-500">Company</a>
+        </div>
 
-    <button
-      id="removeBtn"
-      class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-    >
-      Remove Background
-    </button>
+        <!-- Login link -->
+        <div class="hidden md:block">
+          <a
+            href="/product.html"
+            class="text-sm font-medium text-white hover:text-indigo-500"
+          >
+            Get Started →
+          </a>
+        </div>
 
-    <div id="loader" class="mt-6 text-gray-600 hidden">Processing...</div>
+        <!-- Mobile Menu Button -->
+        <button
+          id="menu-toggle"
+          class="text-white md:hidden focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
 
-    <div id="comparison" class="mt-10 w-full max-w-4xl hidden">
-      <img-comparison-slider>
-        <img id="original" slot="first" src="" alt="Original Image" />
-        <img id="result" slot="second" src="" alt="Result Image" />
-      </img-comparison-slider>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden mt-4 space-y-2 hidden">
+        <a href="/product.html" class="block text-white hover:text-indigo-500"
+          >Product</a
+        >
+        <a href="#" class="block text-white hover:text-indigo-500">About Us</a>
+        <a href="#" class="block text-white hover:text-indigo-500"
+          >Marketplace</a
+        >
+        <a href="#" class="block text-white hover:text-indigo-500">Company</a>
+        <a href="/product.html" class="block text-white hover:text-indigo-500"
+          >Get Started →</a
+        >
+      </div>
 
-      <a
-        id="downloadBtn"
-        href="#"
-        download="bg-removed.png"
-        class="mt-4 inline-block bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-        >Download Removed Image</a
-      >
-    </div>
+      <script>
+        const toggle = document.getElementById("menu-toggle");
+        const menu = document.getElementById("mobile-menu");
 
-    <script>
-      const imageInput = document.getElementById("imageUpload");
-      const removeBtn = document.getElementById("removeBtn");
-      const originalImg = document.getElementById("original");
-      const resultImg = document.getElementById("result");
-      const downloadBtn = document.getElementById("downloadBtn");
-      const loader = document.getElementById("loader");
-      const comparison = document.getElementById("comparison");
+        toggle.addEventListener("click", () => {
+          menu.classList.toggle("hidden");
+        });
+      </script>
+    </nav>
 
-      let originalFile = null;
+    <main class="flex-grow">
+      <!-- Main Section -->
+      <section class="text-center py-16 px-4">
+        <h1 class="text-5xl font-extrabold text-white mb-4">
+          Remove Image Background
+        </h1>
+        <p class="text-lg text-white max-w-xl mx-auto">
+          Upload your image to automatically remove the background
+        </p>
+      </section>
 
-      imageInput.addEventListener("change", (e) => {
-        originalFile = e.target.files[0];
-        if (originalFile) {
-          originalImg.src = URL.createObjectURL(originalFile);
-          comparison.classList.add("hidden");
-        }
-      });
+      <!-- Upload Area -->
+      <section class="flex justify-center px-4">
+        <div
+          class="bg-white w-full max-w-3xl rounded-xl border-2 border-dashed border-gray-300 p-10 text-center shadow-md transition hover:shadow-xl"
+        >
+          <input type="file" id="imageUpload" accept="image/*" class="hidden" />
+          <label
+            for="imageUpload"
+            class="cursor-pointer block text-blue-600 font-semibold hover:underline"
+          >
+            Click to upload an image
+          </label>
 
-      removeBtn.addEventListener("click", async () => {
-        if (!originalFile) {
-          alert("Please upload an image first.");
-          return;
-        }
+          <!-- File Name Display -->
+          <div
+            id="fileName"
+            class="mt-4 text-sm text-blue-600 bg-blue-50 p-2 rounded hidden"
+          ></div>
 
-        loader.classList.remove("hidden");
+          <button
+            id="removeBtn"
+            class="mt-6 bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Remove Background
+          </button>
 
-        const formData = new FormData();
-        formData.append("image_file", originalFile);
+          <div id="loader" class="text-gray-500 mt-4 hidden">
+            ⏳ Removing background...
+          </div>
+        </div>
+      </section>
 
-        try {
-          const response = await fetch("https://api.remove.bg/v1.0/removebg", {
-            method: "POST",
-            headers: {
-              "X-Api-Key": "gakq5SZQ7kfHyEiypntyVVWP",
-            },
-            body: formData,
-          });
+      <!-- Comparison Area -->
+      <section id="comparison" class="mt-16 px-4 hidden fade-in">
+        <div class="max-w-5xl mx-auto">
+          <img-comparison-slider>
+            <img id="original" slot="first" src="" alt="Original Image" />
+            <img id="result" slot="second" src="" alt="Result Image" />
+          </img-comparison-slider>
 
-          if (!response.ok) {
-            throw new Error("Failed to remove background");
+          <div class="text-center mt-6">
+            <a
+              id="downloadBtn"
+              href="#"
+              download="bg-removed.png"
+              class="bg-green-600 text-white font-semibold px-6 py-2 rounded hover:bg-green-700 transition"
+            >
+              Download Removed Image
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        const imageInput = document.getElementById("imageUpload");
+        const removeBtn = document.getElementById("removeBtn");
+        const originalImg = document.getElementById("original");
+        const resultImg = document.getElementById("result");
+        const downloadBtn = document.getElementById("downloadBtn");
+        const loader = document.getElementById("loader");
+        const comparison = document.getElementById("comparison");
+        const fileNameDisplay = document.getElementById("fileName");
+
+        let originalFile = null;
+
+        imageInput.addEventListener("change", (e) => {
+          originalFile = e.target.files[0];
+          if (originalFile) {
+            originalImg.src = URL.createObjectURL(originalFile);
+            fileNameDisplay.textContent = `Uploaded: ${originalFile.name}`;
+            fileNameDisplay.classList.remove("hidden");
+            comparison.classList.add("hidden");
+          }
+        });
+
+        removeBtn.addEventListener("click", async () => {
+          if (!originalFile) {
+            alert("Please upload an image first.");
+            return;
           }
 
-          const blob = await response.blob();
-          const imageUrl = URL.createObjectURL(blob);
+          loader.classList.remove("hidden");
 
-          resultImg.src = imageUrl;
-          downloadBtn.href = imageUrl;
+          const formData = new FormData();
+          formData.append("image_file", originalFile);
 
-          comparison.classList.remove("hidden");
-        } catch (err) {
-          alert("Error: " + err.message);
-        } finally {
-          loader.classList.add("hidden");
-        }
-      });
-    </script>
+          try {
+            const response = await fetch(
+              "https://api.remove.bg/v1.0/removebg",
+              {
+                method: "POST",
+                headers: {
+                  "X-Api-Key": "gakq5SZQ7kfHyEiypntyVVWP",
+                },
+                body: formData,
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error("Failed to remove background");
+            }
+
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+
+            resultImg.src = imageUrl;
+            downloadBtn.href = imageUrl;
+
+            comparison.classList.remove("hidden");
+          } catch (err) {
+            alert("Error: " + err.message);
+          } finally {
+            loader.classList.add("hidden");
+          }
+        });
+      </script>
+    </main>
+
+    <footer
+      class="bg-black flex flex-col sm:flex-row justify-between items-center p-6 bg-neutral text-neutral-content"
+    >
+      <!-- Left: Logo & Text -->
+      <div class="flex items-center gap-3 text-sm">
+        <svg
+          width="36"
+          height="36"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="text-white"
+        >
+          <path
+            d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"
+          ></path>
+        </svg>
+        <p>
+          &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          - All rights reserved
+        </p>
+      </div>
+
+      <!-- Right: Social Icons -->
+      <div class="flex gap-4 mt-4 sm:mt-0">
+        <a href="#" aria-label="Twitter" class="hover:text-blue-400 transition">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M24 4.56c-.89.39-1.85.65-2.86.77a4.94 4.94 0 0 0 2.16-2.72 9.83 9.83 0 0 1-3.13 1.2A4.92 4.92 0 0 0 16.6 3c-2.73 0-4.94 2.21-4.94 4.93 0 .39.04.77.12 1.13A14.01 14.01 0 0 1 1.64 3.16a4.9 4.9 0 0 0-.67 2.48c0 1.71.87 3.22 2.19 4.1a4.93 4.93 0 0 1-2.24-.62v.06c0 2.39 1.7 4.38 3.95 4.83a4.97 4.97 0 0 1-2.23.08c.63 1.96 2.45 3.39 4.6 3.43A9.87 9.87 0 0 1 0 19.54a13.94 13.94 0 0 0 7.56 2.21c9.05 0 14-7.5 14-14 0-.21-.01-.42-.02-.63A10.12 10.12 0 0 0 24 4.56z"
+            />
+          </svg>
+        </a>
+
+        <a href="#" aria-label="YouTube" class="hover:text-red-500 transition">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M23.498 6.186a2.99 2.99 0 0 0-2.106-2.113C19.692 3.5 12 3.5 12 3.5s-7.692 0-9.392.573a2.99 2.99 0 0 0-2.106 2.113A31.117 31.117 0 0 0 0 12a31.117 31.117 0 0 0 .502 5.814 2.99 2.99 0 0 0 2.106 2.113C4.308 20.5 12 20.5 12 20.5s7.692 0 9.392-.573a2.99 2.99 0 0 0 2.106-2.113A31.117 31.117 0 0 0 24 12a31.117 31.117 0 0 0-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="#"
+          aria-label="Facebook"
+          class="hover:text-blue-600 transition"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M22.675 0h-21.35C.6 0 0 .6 0 1.326V22.67c0 .73.6 1.33 1.326 1.33h11.5V14.7h-3.13v-3.63h3.13V8.413c0-3.1 1.894-4.788 4.66-4.788 1.325 0 2.463.1 2.795.143v3.24h-1.92c-1.504 0-1.794.716-1.794 1.763v2.31h3.588l-.467 3.63h-3.12V24h6.116c.73 0 1.33-.6 1.33-1.326V1.325C24 .6 23.4 0 22.675 0z"
+            />
+          </svg>
+        </a>
+      </div>
+    </footer>
   </body>
 </html>

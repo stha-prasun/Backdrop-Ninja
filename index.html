@@ -39,28 +39,29 @@
     <nav class="px-8 py-6">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <div
-          class="text-white font-bold text-xl flex items-center cursor-pointer"
-        >
-          Backdrop Ninja
-        </div>
+        <a href="/">
+          <div
+            class="text-white font-bold text-xl flex items-center cursor-pointer"
+          >
+            Backdrop Ninja
+          </div>
+        </a>
 
         <!-- Desktop Links -->
         <div class="space-x-8 text-sm font-medium hidden md:flex">
-          <a href="./product.html" class="text-white hover:text-indigo-500">Product</a>
+          <a href="./product.html" class="text-white hover:text-indigo-500"
+            >Product</a
+          >
           <a href="#" class="text-white hover:text-indigo-500">About Us</a>
-          <a href="#" class="text-white hover:text-indigo-500">Marketplace</a>
-          <a href="#" class="text-white hover:text-indigo-500">Company</a>
         </div>
 
         <!-- Login link -->
         <div class="hidden md:block">
-          <a
-            href="./product.html"
-            class="text-sm font-medium text-white hover:text-indigo-500"
+          <button
+            class="px-4 py-2 bg-white text-black rounded-md hover:text-white hover:bg-blue-700 transition"
           >
-            Get Started →
-          </a>
+            Get Started
+          </button>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -86,15 +87,10 @@
 
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="md:hidden mt-4 space-y-2 hidden">
-        <a href="./product.html" class="block text-white hover:text-indigo-500">Product</a>
-        <a href="#" class="block text-white hover:text-indigo-500">About Us</a>
-        <a href="#" class="block text-white hover:text-indigo-500"
-          >Marketplace</a
-        >
-        <a href="#" class="block text-white hover:text-indigo-500">Company</a>
         <a href="./product.html" class="block text-white hover:text-indigo-500"
-          >Get Started →</a
+          >Product</a
         >
+        <a href="#" class="block text-white hover:text-indigo-500">About Us</a>
       </div>
 
       <script>
@@ -114,26 +110,23 @@
       <!-- Text Content -->
       <div class="md:w-1/2 mb-10 md:mb-0">
         <h1 class="text-4xl font-bold tracking-tight text-white mb-6">
-          We’re changing the <br />
-          way people connect
+          Instant Background Removal <br />
+          for Flawless Images
         </h1>
         <p class="text-white leading-relaxed mb-6">
-          Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem
-          cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat
-          aliqua.
+          We’re your stealthy sidekick for photo perfection. Backdrop Ninja
+          removes backgrounds from your images in seconds, no design skills or
+          software needed. Whether you're a content creator, seller, or just
+          cleaning up a profile pic, we make your visuals stand out with clean,
+          professional results.
         </p>
         <div class="flex gap-4">
-          <a
-            href="./product.html"
-            class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-6 py-3 rounded-lg"
-          >
-            Get started
-          </a>
-          <a
-            href="#"
-            class="text-sm font-medium text-gray-700 hover:text-indigo-600 flex items-center"
-          >
-            Learn more →
+          <a href="./product.html">
+            <button
+              class="px-4 py-2 bg-[#121c4d] text-white rounded-md hover:bg-blue-700 transition"
+            >
+              Get Started
+            </button>
           </a>
         </div>
       </div>
@@ -166,10 +159,10 @@
         <div
           class="flex justify-between text-xs sm:text-sm text-white mt-2 px-2"
         >
-          <span class="bg-black/60 px-2 sm:px-3 py-1 rounded-full"
+          <span class="bg-black/40 px-2 sm:px-3 py-1 rounded-full"
             >Original</span
           >
-          <span class="bg-black/60 px-2 sm:px-3 py-1 rounded-full"
+          <span class="bg-black/40 px-2 sm:px-3 py-1 rounded-full"
             >Removed BG</span
           >
         </div>
